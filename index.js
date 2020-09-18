@@ -49,22 +49,15 @@ websocket.on("request", request => {
         'id' : params.get('token'),
         'connection' : request.accept(null, request.origin)
       })
-
-      if (ws_dashies.filter(d => d.id == params.get('token')).length){
-        // existing connection, override
-        ws_dashies.filter(d => d.id == params.get('token'))[0] = dashy
-      }else{
-        // register new item for this user
-        ws_dashies.push(dashy)
-      }
+      ws_dashies.push(dashy)
     }else{
       request.reject('Wrong token - Invalid user id');
     }
   }else{
     // Request from student clients
-    console.log('external request: ' + params.get('token'));
     if(users.filter(u => u.api_token == params.get('token')).length === 1) {
       let usr = users.filter(u => u.api_token == params.get('token'))[0];
+
 
       let newCon = {
         'userId' : usr.id,
@@ -72,7 +65,10 @@ websocket.on("request", request => {
       }
       ws_clients.push(bindClient(newCon))
       newCon.connection.send('Welcome, take a seat!')
+
+      console.log('successfull student connection. User Id: ' + usr.id);
     }else{
+      console.log('Invalid student request');
       request.reject('Wrong token');
     }
 
