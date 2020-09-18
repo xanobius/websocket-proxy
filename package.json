@@ -1,0 +1,17 @@
+{
+  "name": "simple_websocket",
+  "version": "1.0.0",
+  "description": "Websocket serv for dashboard",
+  "main": "index.js",
+  "scripts": {
+    "devStart": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Philipp Lauwiner",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "mysql": "^2.18.1",
+    "websocket": "^1.0.32"
+  }
+}
